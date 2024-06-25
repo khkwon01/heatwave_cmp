@@ -10,7 +10,7 @@ import pandas as pd
 import ipaddress
 
 __title__ = 'perftest'
-__version__ = '0.1.0-DEV'
+__version__ = '0.2.0-DEV'
 __author__ = 'khkwon01'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2024'
@@ -92,6 +92,7 @@ class WebGui:
         progress(0.3)
         mydb = MySQLdb(ip, port, user, password)
         data, exec_time = mydb.execute_query(self.statement)
+        expl, exec_gar = mydb.execute_query('explain ' + self.statement)
         mydb.disconnect()
         
         resplot = gr.BarPlot(
@@ -108,16 +109,14 @@ class WebGui:
 
         if service == "mysql":
             response = {
-                self.output: gr.Row(visible=True) if msg is None else gr.Row(visible=False),
-                self.res: gr.Row(visible=True),
-                self.resbox: msg if msg is not None else f"The exeuction of {service} is succeed!! (query execution time : {exec_time})", 
+                self.myresbox: msg if msg is not None else f"The exeuction of {service} is succeed!! (query execution time : {exec_time}, rowcount: {len(data)})", 
+                self.myexpl: expl.to_markdown(),
                 self.plotmysql: resplot              
             }
         else:
             response = {
-                self.output : gr.Row(visible=True) if msg is None else gr.Row(visible=False),
-                self.res : gr.Row(visible=True),
-                self.resbox: msg if msg is not None else f"The exeuction of {service} is succeed!! (query execution time : {exec_time})", 
+                self.htresbox: msg if msg is not None else f"The exeuction of {service} is succeed!! (query execution time : {exec_time}, rowcount: {len(data)})", 
+                self.htexpl: expl.to_markdown(),
                 self.plotheatw: resplot               
             }
 
@@ -152,9 +151,17 @@ class WebGui:
                     self.mybtn = gr.Button("execution")
                 with gr.Column():
                     self.htbtn = gr.Button("execution")
-            with gr.Row(visible=False) as self.res:
-                self.resbox = gr.Textbox(label="response")
-            with gr.Row(visible=False, equal_height=True) as self.output :
+            with gr.Row() as self.res:
+                with gr.Column():
+                    self.myresbox = gr.Textbox(label="mysql response")
+                with gr.Column():
+                    self.htresbox = gr.Textbox(label="heatwave response")
+            with gr.Row():
+                with gr.Column(scale=1):
+                    self.myexpl = gr.Textbox(label="MySQL explain")
+                with gr.Column(scale=1):
+                    self.htexpl = gr.Textbox(label="heatwave explain")
+            with gr.Row(equal_height=True) as self.output :
                 with gr.Column(scale=1):
                     self.plotmysql = gr.BarPlot(label='MySQL')
                 with gr.Column(scale=1):
@@ -162,13 +169,13 @@ class WebGui:
 
             self.mybtn.click(self.execute_testsql, \
                             [gr.Textbox(value="mysql", visible=False), self.mysip, self.myport, self.myuser, self.mypass], \
-                            [self.output, self.res, self.resbox, self.plotmysql])
+                            [self.myresbox, self.myexpl, self.plotmysql])
             self.htbtn.click(self.execute_testsql, \
                             [gr.Textbox(value="heatwave", visible=False), self.htip, self.htport, self.htuser, self.htpass], \
-                            [self.output, self.res, self.resbox, self.plotheatw])
+                            [self.htresbox, self.htexpl, self.plotheatw])
 
-        #self.iface.launch(auth=("admin", "pass1234"))
-        self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True)
+        self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True, auth=("admin", "pass1234"),ssl_certfile="cert.pem", ssl_keyfile="key.pem", ssl_verify=False)
+        #self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True)
 
 if __name__ == '__main__':
     parser = get_args_parser()
@@ -193,5 +200,3 @@ if __name__ == '__main__':
 
     webgui = WebGui(options=options)
     webgui.make_webui()
-
-
