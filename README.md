@@ -4,5 +4,6 @@
 pip install -r requirements.txt
 
 ## 2. execution screen
-![image](https://github.com/khkwon01/heatwave_cmp/assets/8789421/14da296d-a1e2-4274-b4aa-918964949c40)
+![image](https://github.com/khkwon01/heatwave_cmp/assets/8789421/f4b53363-b0c7-4346-8396-7d5c5ae20483)
+
 
