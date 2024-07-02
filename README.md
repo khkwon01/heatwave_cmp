@@ -1,9 +1,12 @@
 # heatwave_cmp
 
-## 1. install (it needs beyond the Python3.6 version)
+## 1. Heatwave overall architecture
+![image](https://github.com/khkwon01/heatwave_cmp/assets/8789421/d0fd2891-2720-4011-87c9-633f4563120b)
+
+## 2. install (it needs beyond the Python3.6 version)
 pip install -r requirements.txt
 
-## 2. execution screen
+## 3. execution screen
 - OLAP view    
 ![image](https://github.com/khkwon01/heatwave_cmp/assets/8789421/19a04f33-1304-4f25-99d0-0b21dbf4fb24)
 
