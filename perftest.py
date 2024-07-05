@@ -174,8 +174,7 @@ class WebGui:
                             [gr.Textbox(value="heatwave", visible=False), self.htip, self.htport, self.htuser, self.htpass], \
                             [self.htresbox, self.htexpl, self.plotheatw])
 
-        self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True, auth=("admin", "pass1234"),ssl_certfile="cert.pem", ssl_keyfile="key.pem", ssl_verify=False)
-        #self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True)
+        self.iface.launch(server_name="0.0.0.0", server_port=8000, show_error=True)
 
 if __name__ == '__main__':
     parser = get_args_parser()
