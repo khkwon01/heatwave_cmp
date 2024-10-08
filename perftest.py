@@ -39,7 +39,7 @@ def get_args_parser():
         type=str,
         help="Oci config file for geting oci info")
     parser.add_argument("--namespace",
-        default="idazzjlcjqzj",
+        default="<<namespace>>",
         type=str,
         help="Namespace of oci object storage")
     parser.add_argument("--bucket",
