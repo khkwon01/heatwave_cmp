@@ -16,4 +16,6 @@ pip install -r requirements.txt
 - AutoML view
 ![image](https://github.com/khkwon01/heatwave_cmp/assets/8789421/60278f24-ecbb-4ecd-ae8c-635f5a2c91da)
 
+- GenAI view
+![image](https://github.com/user-attachments/assets/ee4aef73-6678-409d-ad3c-7ac032b0dd2a)
 
