@@ -28,14 +28,13 @@ CREATE PROCEDURE SUMMARIZE_TRANSLATE(
   let reviews = sql.bind(product_id, sentiment).execute();
   let all_reviews = Array.from(reviews).map(review => review.review_text).join("\n");
 
-  let summary = ml.generate(all_reviews, {task: "summarization"});
+  let summary = ml.generate(all_reviews, {model_id: "llama3-8b-instruct-v1", task: "summarization", language: language});
   processed_summary = summary.trim();
 
-  if (language != "en") {  
+  if (language != "ko") {  
     let prompt = `Translate the Original Text to ${language}. \n 
                            - Original Text: "${processed_summary}"\n - ${language} Translation:`;
-    // let translation = ml.generate(prompt, {model_id: "cohere.command-r-plus", max_tokens: 800, language: language}); 
-    let translation = ml.generate(prompt, {model_id: "llama3-8b-instruct-v1", max_tokens: 800, language: language}); 
+    let translation = ml.generate(prompt, {max_tokens: 800, language: language}); 
     processed_summary = translation.split('\n')[0];
   }
 $$;
