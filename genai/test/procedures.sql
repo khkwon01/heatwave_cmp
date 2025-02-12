@@ -34,7 +34,8 @@ CREATE PROCEDURE SUMMARIZE_TRANSLATE(
   if (language != "en") {  
     let prompt = `Translate the Original Text to ${language}. \n 
                            - Original Text: "${processed_summary}"\n - ${language} Translation:`;
-    let translation = ml.generate(prompt, {model_id: "cohere.command-r-plus", max_tokens: 800, language: language}); 
+    // let translation = ml.generate(prompt, {model_id: "cohere.command-r-plus", max_tokens: 800, language: language}); 
+    let translation = ml.generate(prompt, {model_id: "llama3-8b-instruct-v1", max_tokens: 800, language: language}); 
     processed_summary = translation.split('\n')[0];
   }
 $$;
