@@ -7,7 +7,7 @@ SET @review_id = 1337;
 
 SELECT @review AS "";
 
-INSERT INTO reviews(id, language_code, product_id, customer_id, rating, review_text) VALUES (@review_id,'en',1,20,4,@review);
+INSERT INTO reviews(id, language_code, product_id, customer_id, rating, review_text) VALUES (@review_id,'ko',1,20,4,@review);
 
 SELECT review_text INTO @review_text FROM reviews WHERE id = @review_id;
 CALL SENTIMENT_ANALYSIS(@review_text, @review_id);
