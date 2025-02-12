@@ -28,7 +28,7 @@ CREATE PROCEDURE SUMMARIZE_TRANSLATE(
   let reviews = sql.bind(product_id, sentiment).execute();
   let all_reviews = Array.from(reviews).map(review => review.review_text).join("\n");
 
-  let summary = ml.generate(all_reviews, {model_id: "llama3-8b-instruct-v1", task: "summarization", language: language});
+  let summary = ml.generate(all_reviews, {model_id: "llama3-8b-instruct-v1", task: "summarization", language: "ko"});
   processed_summary = summary.trim();
 
   if (language != "ko") {  
