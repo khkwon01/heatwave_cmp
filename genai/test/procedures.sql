@@ -6,10 +6,10 @@ CREATE PROCEDURE SENTIMENT_ANALYSIS(
   IN review_id INT
 ) LANGUAGE JAVASCRIPT AS $$
 
-  let prompt = `review에 내용을 긍정 또는 부정으로 분류해 주세요 \n${review}. 
-    분류 결과는 "긍정" 또는 "부정"으로 한단어로 표현해 주세요.. \n반응:`;
+  let prompt = `review에 내용을 긍정 또는 부정으로 분류해 주세요.\n${review}. 
+    분류 결과는 "긍정" 또는 "부정"으로 한단어로 표현해 주세요.\n반응:`;
  
-  let sentiment = ml.generate(prompt);
+  let sentiment = ml.generate(prompt, {model_id: "llama3-8b-instruct-v1"});
   let processed_sentiment = sentiment.toUpperCase().search("긍정") ? "긍정" : "부정";
 
   let sql = session.prepare(`UPDATE reviews SET sentiment = ? WHERE id = ?`);
