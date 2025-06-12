@@ -28,6 +28,17 @@ obj_model_list = [
 #                    "cohere.command"
                  ]
 
+"""
+-- select * from ML_SUPPORTED_LLMS ;
+llama2-7b-v1           
+mistral-7b-instruct-v1 
+mistral-7b-instruct-v3 
+llama3-8b-instruct-v1  
+llama3.1-8b-instruct-v1
+llama3.2-1b-instruct-v1
+llama3.2-3b-instruct-v1
+"""
+
 obj_par_url = {
     "lkread"  : "https://objectstorage.ap-seoul-1.oraclecloud.com/p/uIbRJUZeFAcDFg8jGjEysP2_ojKyZ2-qPaC33CNtzFZfOFGYndokNrAnLCdPq-PV/n/apaccpt01/b/ml-lake-test/o/bank.csv",
     "lkwrite" : "https://objectstorage.ap-seoul-1.oraclecloud.com/p/YUmRUYyApkFUn_BuTvsKKGraOed8PjbUX27BmpQafNHWq1neJOmRGHmMVYuagQzp/n/apaccpt01/b/ml-lake-test/o/",
